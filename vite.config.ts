@@ -1,6 +1,10 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
+// vite.config.ts 在 Node 环境运行，这里显式声明 process 类型，
+// 避免在未安装 @types/node 时触发 TS2580 类型检查错误。
+declare const process: { env: Record<string, string | undefined> }
+
 // GitHub Pages 项目页地址形如 https://<user>.github.io/<repo>/，
 // 静态资源需带 /<repo>/ 前缀才能正确加载；本地开发则保持根路径 '/'。
 // 这两个值由 CI 在构建时通过环境变量注入（见 .github/workflows/deploy.yml）。
