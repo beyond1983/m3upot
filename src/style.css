@@ -516,3 +516,480 @@ body {
     font-size: 12px;
   }
 }
+
+/* ---------- 全局导航 / 路由切换 ---------- */
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.app-nav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--color-border);
+  background: linear-gradient(180deg, var(--color-surface), var(--color-bg));
+}
+
+.app-nav__brand {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.app-nav__tabs {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.app-nav__tab {
+  padding: 8px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  font-size: 14px;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.app-nav__tab:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.app-nav__tab.is-active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.app-main {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+.app-main > * {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ---------- TV 直播 ---------- */
+.tv {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.tv__icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.tv__icon-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.tv__icon-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.tv__icon-btn .local-cinema__icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.tv__input {
+  display: none;
+}
+
+.tv__empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.tv__drop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 32px;
+  border: 1px dashed var(--color-border);
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: center;
+  max-width: 420px;
+}
+
+.tv__drop:hover {
+  border-color: var(--color-primary);
+}
+
+.tv__hint {
+  margin: 0;
+  color: var(--color-text-dim);
+  font-size: 14px;
+}
+
+.tv__error {
+  margin: 0;
+  color: var(--color-danger);
+  font-size: 13px;
+}
+
+.tv__body {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 180px minmax(200px, 1fr) minmax(380px, 1.7fr);
+  grid-template-areas: "groups list player";
+}
+
+/* 收缩分组侧栏：仅保留展开按钮的窄轨，让位给频道列表与播放区 */
+.tv__body.is-collapsed {
+  grid-template-columns: 44px minmax(200px, 1fr) minmax(380px, 1.9fr);
+}
+
+/* 分组侧栏 */
+.tv__groups {
+  grid-area: groups;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 6px;
+  border-right: 1px solid var(--color-border);
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.tv__body.is-collapsed .tv__groups {
+  align-items: center;
+  overflow: hidden;
+}
+
+/* 收缩/展开切换按钮 */
+.tv__collapse {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  margin-bottom: 3px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-surface);
+  color: var(--color-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.tv__collapse:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.tv__collapse:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.tv__collapse svg {
+  display: block;
+  width: 14px;
+  height: 14px;
+}
+
+.tv__group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 6px 8px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+  text-align: left;
+  font-size: 13px;
+  transition: background 0.15s ease;
+}
+
+.tv__group:hover {
+  background: var(--color-surface);
+}
+
+.tv__group.is-active {
+  background: var(--color-surface-2);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.tv__group-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tv__group-count {
+  flex: none;
+  font-size: 11px;
+  color: var(--color-text-dim);
+  background: var(--color-bg);
+  border-radius: 999px;
+  padding: 1px 6px;
+}
+
+.tv__group.is-active .tv__group-count {
+  color: var(--color-primary);
+}
+
+/* 频道列表 */
+.tv__list {
+  grid-area: list;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border-right: 1px solid var(--color-border);
+}
+
+.tv__list-head {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.tv__search {
+  width: 100%;
+  padding: 7px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: 13px;
+}
+
+.tv__search:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.tv__channels {
+  flex: 1;
+  overflow-y: auto;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tv__channel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  text-align: left;
+}
+
+.tv__channel:hover {
+  border-color: var(--color-border);
+}
+
+.tv__channel.is-active {
+  border-color: var(--color-primary);
+  background: var(--color-surface-2);
+}
+
+.tv__channel-logo img {
+  width: 34px;
+  height: 22px;
+  object-fit: cover;
+  border-radius: 3px;
+  background: var(--color-bg);
+}
+
+.tv__channel-noimg {
+  width: 34px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.tv__channel-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.tv__channel-src {
+  flex: none;
+  font-size: 10px;
+  color: var(--color-text-dim);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 1px 5px;
+}
+
+.tv__list-empty {
+  color: var(--color-text-dim);
+  font-size: 13px;
+  padding: 12px;
+}
+
+/* 播放区域 */
+.tv__player {
+  grid-area: player;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: #000;
+}
+
+.tv__video-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+}
+
+.tv__video {
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+
+.tv__video-ph {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--color-text-dim);
+  text-align: center;
+  padding: 16px;
+}
+
+.tv__video-ph .local-cinema__icon {
+  font-size: 48px;
+}
+
+.tv__ext {
+  margin-top: 6px;
+  padding: 8px 14px;
+  border: 1px solid var(--color-primary);
+  border-radius: 8px;
+  background: var(--color-primary);
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.tv__info {
+  padding: 12px 16px;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.tv__info-title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.tv__info-meta {
+  font-size: 12px;
+  color: var(--color-text-dim);
+  margin: 2px 0 8px;
+}
+
+.tv__sources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tv__source {
+  padding: 6px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.tv__source.is-active {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* 移动端：单列堆叠，分组横滑、播放区置顶、频道列表在下 */
+@media (max-width: 860px) {
+  .tv__body,
+  .tv__body.is-collapsed {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "groups"
+      "player"
+      "list";
+  }
+
+  .tv__groups,
+  .tv__body.is-collapsed .tv__groups {
+    flex-direction: row;
+    align-items: center;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .tv__group {
+    white-space: nowrap;
+  }
+
+  .tv__player {
+    min-height: 240px;
+  }
+
+  .tv__list {
+    border-right: none;
+  }
+}
