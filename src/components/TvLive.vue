@@ -111,6 +111,13 @@ function parseM3u(text: string): TvChannel[] {
   return out
 }
 
+/** 指定分组排序优先级：央视频道 > 卫视频道 > 其余（按中文拼音）；未分组始终置末尾 */
+const GROUP_PRIORITY = ['央视频道', '卫视频道']
+function groupOrder(title: string): number {
+  const i = GROUP_PRIORITY.indexOf(title)
+  return i === -1 ? GROUP_PRIORITY.length : i
+}
+
 /** 按 group + 频道名合并：同名同组的多个播放地址合并为多个源 */
 function buildGroups(channels: TvChannel[]): TvGroup[] {
   const map = new Map<string, Map<string, TvChannel>>()
@@ -133,6 +140,9 @@ function buildGroups(channels: TvChannel[]): TvGroup[] {
   result.sort((a, b) => {
     if (a.title === '未分组') return 1
     if (b.title === '未分组') return -1
+    const oa = groupOrder(a.title)
+    const ob = groupOrder(b.title)
+    if (oa !== ob) return oa - ob
     return a.title.localeCompare(b.title, 'zh')
   })
   return result
